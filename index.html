@@ -1,0 +1,78 @@
+<html>
+ 
+ 
+<head>
+ 
+    <title>Assignment 10 - Api Fun</title>
+    <meta charset="utf-8"/>
+    <style>
+        h1 {
+            color:rgb(236, 238, 141);
+        }
+        .header {
+            font-size: 20px;
+            font-weight:600;
+        }
+        body {
+            background-image: url('weather.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 20px;
+            color:rgb(18, 24, 21);
+        }
+
+    </style>
+
+    <script>
+        
+        function callAPI() {
+            // Make an http request
+            request = new XMLHttpRequest();
+            // Open the json file
+            request.open("GET", "https://weatherdbi.herokuapp.com/data/weather/millburnnewjersey", true);
+            request.onreadystatechange = function() {
+                // Get json file back
+                if (request.readyState == 4 && request.status == 200) {
+                    result = request.responseText;
+                    data = JSON.parse(result);
+                    document.getElementById("data_string").innerHTML = result;
+                } else if (request.readyState == 4 && request.status != 200) {
+                    document.getElementById("data_string").innerHTML = "Error";
+                }
+            }
+            request.send();
+        }
+
+        /* Using fetch to complete the same api call
+        window.onload = async function() {
+            res = await fetch("https://weatherdbi.herokuapp.com/data/weather/millburnnewjersey");
+            data = await res.text();
+            document.getElementById("data_string").innerHTML = data;
+        }
+        */
+
+   
+    </script>
+ 
+</head>
+ 
+<!-- If using fetch to do the api call, delete "onload="callAPI()"" -->
+<body onload="callAPI()">
+   
+    <h1>API Fun!</h1>
+    <div class="header">Weather in Millburn, NJ:</div>
+    <div id="data_string"></div></br>
+    <p class="header"> Assignment Information:</p>
+    <div>I selected the WeatherDB API which gets weather data for a given town or city.</div>
+    <div>I found the API on this website: <a class="hplink", href="https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/">https://mixedanalytics.com/blog/list-actually-free-open-no-auth-needed-apis/.</a></div>
+    <div>I used different options such as "newyork", "losangeles", and "millburnnewjersey" (my hometown) for the API request.</div>
+    <div>This API would be helpful if you are planning to go outside and want to check the weather in your area. It would also be useful
+         if you are planning on traveling and want to pack accordingly for the weather in the area where you are headed.
+    </div>
+ 
+</body>
+ 
+ 
+</html>
